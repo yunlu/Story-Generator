@@ -66,32 +66,38 @@ public class Test {
 		
 		
 		Characteristic edible = new Characteristic();
-		edible.ID = StatusCharacteristicRegistry.EDIBLE;
+		edible.ID = StatusCharacteristicRegistry.C.EDIBLE;
 		edible.amount = 50;
 		edible.name = "edible";
 		b.characteristics.add(edible);
+		
+		Characteristic dishonest = new Characteristic();
+		dishonest.ID = StatusCharacteristicRegistry.C.HONEST;
+		dishonest.amount = -80;
+		dishonest.name = "dishonest";
+		a.characteristics.add(dishonest);
 		
 		
 		
 		AgentRegistry.alist.add(a);
 		AgentRegistry.alist.add(b);
-		
-		
+		AgentRegistry.alist.add(c);
+		AgentRegistry.alist.add(d);
 		
 		List<State> incrSat = new LinkedList<State>();
 		incrSat.add(new IncreaseSaturation(a));
-		a.statuses.add(new Status(StatusCharacteristicRegistry.SATURATION, 
-				"SATURATION", 20, 10, 50, 
+		a.statuses.add(new Status(StatusCharacteristicRegistry.S.SATURATION, 
+				"S.SATURATION", 20, 10, 50, 
 				new Goal("Eat", incrSat, null)));
 		Planner p = new LazyPlanner();
 		while (true)
 		{
 			boolean ta = false, tc = false;
-			if (a.statuses.size() > 0 && a.statuses.get(0).goal.execute(p, 5))
+			if (a.statuses.size() > 0 && a.statuses.get(0).execute(p, 5))
 			{
 				ta = true;
 			}
-			if (c.statuses.size() > 0 && c.statuses.get(0).goal.execute(p, 5))
+			if (c.statuses.size() > 0 && c.statuses.get(0).execute(p, 5))
 			{
 				tc = true;
 			}

@@ -14,17 +14,17 @@ public class Eat extends Action {
 
 	public Eat(ActiveAgent o, Agent f)
 	{
-		ID = StateActionRegistry.EAT;
+		ID = StateActionRegistry.A.EAT;
 		name = "eat";
 		defaultCost = 10;
-		preConds.add(StateActionRegistry.OWN);
-		postConds.add(StateActionRegistry.INCREASESAT);
+		preConds.add(StateActionRegistry.S.OWN);
+		postConds.add(StateActionRegistry.S.INCREASESAT);
 		owner = o;
 		food = f;
 	}
 	public Eat()
 	{
-		ID = StateActionRegistry.EAT;
+		ID = StateActionRegistry.A.EAT;
 		name = "eat";
 		defaultCost = 10;
 	}
@@ -47,7 +47,7 @@ public class Eat extends Action {
 		if (s == null)
 			return false;
 		// PRECOND?
-/*		if (s.ID == StateActionRegistry.OWN)
+/*		if (s.ID == StateActionRegistry.S.OWN)
 		{
 			Own o = (Own) s;
 			if (o.owner == null || o.owned == null)

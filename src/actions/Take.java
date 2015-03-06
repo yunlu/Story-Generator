@@ -13,15 +13,15 @@ public class Take extends Action {
 	
 	public Take () 
 	{
-		ID = StateActionRegistry.TAKE;
+		ID = StateActionRegistry.A.TAKE;
 		name = "take";
-		preConds.add(StateActionRegistry.AT);
-		postConds.add(StateActionRegistry.OWN);
+		preConds.add(StateActionRegistry.S.AT);
+		postConds.add(StateActionRegistry.S.OWN);
 	}
 	
 	public Take(ActiveAgent o, Agent t)
 	{
-		ID = StateActionRegistry.TAKE;
+		ID = StateActionRegistry.A.TAKE;
 		name = "take";
 		owner = o;
 		taken = t;
@@ -49,7 +49,7 @@ public class Take extends Action {
 	public boolean setUp(State s) {
 		// TODO Auto-generated method stub
 		// Needs to handle postconds, ie. Own
-		if (s.ID == StateActionRegistry.OWN)
+		if (s.ID == StateActionRegistry.S.OWN)
 		{
 			Own o = (Own) s;
 			if (o.owned == null || o.owner == null || o.owned.owner != null)

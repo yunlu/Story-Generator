@@ -8,10 +8,10 @@ import actions.Action;
 
 
 public abstract class State {
-	public int ID;
+	public StateActionRegistry.S ID;
 	public String name;
 	
-	protected List<Integer> toDo = new LinkedList<Integer>(); // List of Action IDs
+	protected List<StateActionRegistry.A> toDo = new LinkedList<StateActionRegistry.A>(); // List of Action IDs
 	public abstract boolean satisfied();
 	public abstract boolean execute();
 	public abstract void print();
@@ -22,7 +22,7 @@ public abstract class State {
 	public List<Action> getAllNextAction()
 	{
 		List<Action> ret = new LinkedList<Action>();
-		for (int i : toDo)
+		for (StateActionRegistry.A i : toDo)
 		{
 			Action a = StateActionRegistry.getActionFromID(i);
 			if (a == null)

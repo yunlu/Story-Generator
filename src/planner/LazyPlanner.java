@@ -48,8 +48,8 @@ public class LazyPlanner implements Planner {
 							prevAction);
 		}
 		
-		// Special case when state is "AT", since we need to invoke the map
-		if (start.ID == StateActionRegistry.AT)
+		// Special case when state is "S.AT", since we need to invoke the map
+		if (start.ID == StateActionRegistry.S.AT)
 		{
 			return lazyPathPlanner((AtState) start, maxNumSteps, currCost, null);
 		}

@@ -1,4 +1,6 @@
 package agent;
+import globalRegistry.StatusCharacteristicRegistry;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public abstract class Agent {
 	public List<Characteristic> characteristics = new LinkedList<Characteristic>();
 	public Location loc = null;
 	public ActiveAgent owner = null;
-	public Characteristic findChar(int i)
+	public Characteristic findChar(StatusCharacteristicRegistry.C i)
 	{
 		for (Characteristic c : characteristics)
 		{

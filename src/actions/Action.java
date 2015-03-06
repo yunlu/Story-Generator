@@ -9,10 +9,10 @@ import java.util.List;
 import state.State;
 
 public abstract class Action {
-	public int ID;
+	public StateActionRegistry.A ID;
 	public String name;
-	public List<Integer> postConds = new LinkedList<Integer>();
-	public List<Integer> preConds = new LinkedList<Integer>();;
+	public List<StateActionRegistry.S> postConds = new LinkedList<StateActionRegistry.S>();
+	public List<StateActionRegistry.S> preConds = new LinkedList<StateActionRegistry.S>();;
 	
 	protected int defaultCost = 10;
 	
@@ -22,7 +22,7 @@ public abstract class Action {
 		if (getCost() == Integer.MAX_VALUE)
 			return false;
 		print();
-		for (int i : postConds)
+		for (StateActionRegistry.S i : postConds)
 		{
 			State s = StateActionRegistry.getStateFromID(i);
 			if (s == null)
@@ -36,7 +36,7 @@ public abstract class Action {
 	public List<State> getPrecond()
 	{
 		List<State> ret = new LinkedList<State>();
-		for (int i : preConds)
+		for (StateActionRegistry.S i : preConds)
 		{
 			State s = StateActionRegistry.getStateFromID(i);
 			if (s == null)

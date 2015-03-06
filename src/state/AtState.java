@@ -4,6 +4,8 @@ import globalRegistry.AgentRegistry;
 import globalRegistry.StateActionRegistry;
 import location.Location;
 import actions.Action;
+import actions.AskTo;
+import actions.Give;
 import actions.Go;
 import actions.Steal;
 import actions.Take;
@@ -18,16 +20,16 @@ public class AtState extends State {
 	public ActiveAgent owner = null;
 
 	public AtState() {
-		ID  = StateActionRegistry.AT;
+		ID  = StateActionRegistry.S.AT;
 		name = "at";
-		toDo.add(StateActionRegistry.GO);
+		toDo.add(StateActionRegistry.A.GO);
 	}
 	
 	public AtState(ActiveAgent p, Location l)
 	{
-		ID  = StateActionRegistry.AT;
+		ID  = StateActionRegistry.S.AT;
 		name = "at";
-		toDo.add(StateActionRegistry.GO);
+		toDo.add(StateActionRegistry.A.GO);
 		loc = l;
 		owner = p;
 		locationOf = null;
@@ -35,9 +37,9 @@ public class AtState extends State {
 	
 	public AtState(ActiveAgent p, Agent l)
 	{
-		ID  = StateActionRegistry.AT;
+		ID  = StateActionRegistry.S.AT;
 		name = "at";
-		toDo.add(StateActionRegistry.GO);
+		toDo.add(StateActionRegistry.A.GO);
 		locationOf = l;
 		owner = p;
 		loc = null;
@@ -97,7 +99,7 @@ public class AtState extends State {
 			return false;
 		
 		// ACTIONS THAT LEAD TO THIS STATE
-		if (action.ID == StateActionRegistry.GO)
+		if (action.ID == StateActionRegistry.A.GO)
 		{
 			Go g = (Go) action;
 			if (g.owner == null || (g.loc == null && g.locationOf == null))
@@ -116,7 +118,7 @@ public class AtState extends State {
 		
 		
 		// ACTIONS WHOSE PRECOND INCLUDES THIS STATE
-		if (action.ID == StateActionRegistry.TAKE)
+		if (action.ID == StateActionRegistry.A.TAKE)
 		{
 			Take t = (Take) action;
 			if (t.owner == null || t.taken == null)
@@ -124,7 +126,7 @@ public class AtState extends State {
 			owner = t.owner;
 			locationOf = t.taken;
 			return true;
-		} else if (action.ID == StateActionRegistry.STEAL)
+		} else if (action.ID == StateActionRegistry.A.STEAL)
 		{
 			
 			Steal s = (Steal) action;
@@ -133,7 +135,25 @@ public class AtState extends State {
 			owner = s.owner;
 			locationOf = s.stolen;
 			return true;
+		} else if (action.ID == StateActionRegistry.A.ASKTO)
+		{
+			AskTo a = (AskTo) action;
+			if (a.asker == null || a.askee == null)
+				return false;
+			owner = a.asker;
+			locationOf = a.askee;
+			return true;
+		} else if (action.ID == StateActionRegistry.A.GIVE)
+		{
+			Give g = (Give) action;
+			if (g.giver == null || g.givee == null || g.obj == null || g.obj.owner != g.giver)
+				return false;
+			owner = g.giver;
+			locationOf = g.givee;
+			return true;
 		}
+		
+		
 		return false;
 	}
 

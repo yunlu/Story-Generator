@@ -1,7 +1,9 @@
 package agent;
 
+import globalRegistry.StatusCharacteristicRegistry;
+
 public class Characteristic {
-	public int ID;
+	public StatusCharacteristicRegistry.C ID;
 	public String name;
 	public int amount;
 }

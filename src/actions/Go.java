@@ -14,18 +14,18 @@ public class Go extends Action {
 	
 	public Go()
 	{
-		ID = StateActionRegistry.GO;
+		ID = StateActionRegistry.A.GO;
 		name = "go";
-		preConds.add(StateActionRegistry.START);
-		postConds.add(StateActionRegistry.AT);
+		preConds.add(StateActionRegistry.S.START);
+		postConds.add(StateActionRegistry.S.AT);
 	}
 	
 	public Go(ActiveAgent o, Location l)
 	{
-		ID = StateActionRegistry.GO;
+		ID = StateActionRegistry.A.GO;
 		name = "go";
-		preConds.add(StateActionRegistry.START);
-		postConds.add(StateActionRegistry.AT);
+		preConds.add(StateActionRegistry.S.START);
+		postConds.add(StateActionRegistry.S.AT);
 		
 		owner = o;
 		loc = l;
@@ -33,10 +33,10 @@ public class Go extends Action {
 	
 	public Go(ActiveAgent o, Agent l)
 	{
-		ID = StateActionRegistry.GO;
+		ID = StateActionRegistry.A.GO;
 		name = "go";
-		preConds.add(StateActionRegistry.START);
-		postConds.add(StateActionRegistry.AT);
+		preConds.add(StateActionRegistry.S.START);
+		postConds.add(StateActionRegistry.S.AT);
 		
 		owner = o;
 		locationOf = l;
@@ -65,7 +65,7 @@ public class Go extends Action {
 		// PRECONDS
 		
 		// POSTCONDS
-		if (s.ID == StateActionRegistry.AT)
+		if (s.ID == StateActionRegistry.S.AT)
 		{
 			AtState a = (AtState) s;
 			if (a.owner == null || (a.loc == null && a.locationOf == null))

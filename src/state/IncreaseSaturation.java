@@ -21,16 +21,16 @@ public class IncreaseSaturation extends State {
 	public Agent currFood;
 	public IncreaseSaturation(ActiveAgent o)
 	{
-		ID = StateActionRegistry.INCREASESAT;
+		ID = StateActionRegistry.S.INCREASESAT;
 		name = "IncreaseSat";
 		owner = o;
-		toDo.add(StateActionRegistry.EAT);
+		toDo.add(StateActionRegistry.A.EAT);
 		currFood = null;
 		for (Agent f : AgentRegistry.alist)
 		{
 			for (Characteristic c : f.characteristics)
 			{
-				if(c.ID == StatusCharacteristicRegistry.EDIBLE)
+				if(c.ID == StatusCharacteristicRegistry.C.EDIBLE)
 				{
 					food.add(f);
 					currFood = f;
@@ -41,15 +41,15 @@ public class IncreaseSaturation extends State {
 	}
 	public IncreaseSaturation()
 	{
-		ID = StateActionRegistry.INCREASESAT;
+		ID = StateActionRegistry.S.INCREASESAT;
 		name = "IncreaseSaturation";
-		toDo.add(StateActionRegistry.EAT);
+		toDo.add(StateActionRegistry.A.EAT);
 		currFood = null;
 		for (Agent f : AgentRegistry.alist)
 		{
 			for (Characteristic c : f.characteristics)
 			{
-				if(c.ID == StatusCharacteristicRegistry.EDIBLE)
+				if(c.ID == StatusCharacteristicRegistry.C.EDIBLE)
 				{
 					food.add(f);
 					currFood = f;
@@ -66,7 +66,7 @@ public class IncreaseSaturation extends State {
 		{
 			for (Characteristic c : f.characteristics)
 			{
-				if(c.ID == StatusCharacteristicRegistry.EDIBLE)
+				if(c.ID == StatusCharacteristicRegistry.C.EDIBLE)
 				{
 					food.add(f);
 					currFood = f;
@@ -84,7 +84,7 @@ public class IncreaseSaturation extends State {
 		{
 			for (Characteristic c : f.characteristics)
 			{
-				if(c.ID == StatusCharacteristicRegistry.EDIBLE)
+				if(c.ID == StatusCharacteristicRegistry.C.EDIBLE)
 				{
 					ret.add(new Eat(owner, f));
 				}
@@ -110,11 +110,11 @@ public class IncreaseSaturation extends State {
 		for (int i = 0; i < currFood.characteristics.size(); i++)
 		{
 			Characteristic c = currFood.characteristics.get(i);
-			if (c.ID == StatusCharacteristicRegistry.EDIBLE)
+			if (c.ID == StatusCharacteristicRegistry.C.EDIBLE)
 			{
 				amountOfIncrease = c.amount;
 				
-				// Also, get rid of the "EDIBLE" quality of this food
+				// Also, get rid of the "C.EDIBLE" quality of this food
 				currFood.characteristics.remove(i);
 			}
 		}
@@ -126,7 +126,7 @@ public class IncreaseSaturation extends State {
 		// Find the owner's saturation status and increase it
 		for (Status c : owner.statuses)
 		{
-			if (c.ID == StatusCharacteristicRegistry.SATURATION)
+			if (c.ID == StatusCharacteristicRegistry.S.SATURATION)
 			{
 				c.amount += amountOfIncrease;
 				return true;
@@ -146,7 +146,7 @@ public class IncreaseSaturation extends State {
 		if (action == null)
 			return false;
 		// ACTIONS THAT LEAD TO THIS STATE
-		if (action.ID == StateActionRegistry.EAT)
+		if (action.ID == StateActionRegistry.A.EAT)
 		{
 			Eat e = (Eat) action;
 			if (e.owner == null || e.food == null)

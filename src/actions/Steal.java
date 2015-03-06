@@ -14,16 +14,16 @@ public class Steal extends Action {
 	
 	public Steal()
 	{
-		ID = StateActionRegistry.STEAL;
+		ID = StateActionRegistry.A.STEAL;
 		name = "take";
-		preConds.add(StateActionRegistry.AT);
-		postConds.add(StateActionRegistry.OWN);
+		preConds.add(StateActionRegistry.S.AT);
+		postConds.add(StateActionRegistry.S.OWN);
 		defaultCost = 100;
 	}
 	
 	public Steal(ActiveAgent o, Agent s)
 	{
-		ID = StateActionRegistry.STEAL;
+		ID = StateActionRegistry.A.STEAL;
 		name = "steal";
 		owner = o;
 		stolen = s;
@@ -40,7 +40,7 @@ public class Steal extends Action {
 		{
 			return Integer.MAX_VALUE;
 		}
-		Characteristic c = owner.findChar(StatusCharacteristicRegistry.HONEST);
+		Characteristic c = owner.findChar(StatusCharacteristicRegistry.C.HONEST);
 		if (c != null)
 		{
 			return c.amount + defaultCost;
@@ -52,10 +52,12 @@ public class Steal extends Action {
 	public boolean setUp(State s) {
 		// TODO Auto-generated method stub
 		// Needs to handle postconds, ie. Own
-		if (s.ID == StateActionRegistry.OWN)
+		if (s.ID == StateActionRegistry.S.OWN)
 		{
 			Own o = (Own) s;
-			if (o.owned == null || o.owner == null || o.owned.owner == null)
+			if (o.owned == null || o.owner == null
+								|| o.owned.owner == null
+								|| o.owned.owner == o.owner) // can't steal from yourself...
 				return false;
 			owner = o.owner;
 			stolen = o.owned;				
